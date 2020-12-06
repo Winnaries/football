@@ -1,0 +1,7 @@
+{
+  "name": "football-analyzer",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
