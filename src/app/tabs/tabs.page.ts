@@ -6,7 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
+  private tab = "";
 
   constructor() {}
+
+  setTab(tab: string): void {
+    this.tab = tab;
+  }
 
 }

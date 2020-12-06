@@ -1,0 +1,58 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 0 16px;
+}
+
+.card {
+  margin-top: 20px;
+  height: auto;
+  padding: 12px;
+  border-radius: 14px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07);
+  transition: all 150ms;
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  span.vs {
+    position: absolute;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--element-500);
+
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  span.team {
+    font-size: 600;
+    font-size: 14px;
+    color: #1d1d1d;
+    margin: 0 8px;
+  }
+
+  img {
+    width: 26px;
+    height: 26px;
+  }
+
+  div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+    &:last-child {
+      justify-content: end;
+    }
+  }
+}

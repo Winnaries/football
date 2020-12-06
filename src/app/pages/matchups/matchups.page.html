@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Matchups
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Matchups</ion-title>
+      <ion-buttons slot="primary">
+        <ion-button>
+          <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="wrapper">
+    <div *ngFor="let matchup of matchups" class="card">
+      <div>
+        <img [src]="matchup.home.logo" />
+        <span class="team">{{matchup.home.name}}</span>
+      </div>
+      <span class="vs">vs</span>
+      <div>
+        <span class="team">{{matchup.away.name}}</span>
+        <img [src]="matchup.away.logo" />
+      </div>
+    </div>
+  </div>
+
+  <app-explore-container *ngIf="matchups.length === 0" name="Matchups"></app-explore-container>
+</ion-content>
