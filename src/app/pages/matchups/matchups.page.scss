@@ -50,10 +50,11 @@
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
 
     &:last-child {
-      justify-content: end;
+      justify-content: flex-end;
+      text-align: right;
     }
   }
 }

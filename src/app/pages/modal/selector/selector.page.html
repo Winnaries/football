@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar 
+      (ionChange)="onSearch($event.target.value)" 
+      placeholder="Liverpool"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="list">
+    <div (click)="onSelect(item)" class="item" *ngFor="let item of getFilteredList()">
+      {{item}}
+    </div>
+  </div>
+</ion-content>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatchupsService, Matchup } from '../../services/matchups.service';
+import { FootballService, Matchup } from '../../services/football.service';
 
 @Component({
   selector: 'app-matchups',
@@ -11,13 +11,13 @@ export class MatchupsPage implements OnInit {
   public matchups: Matchup[] = [];
 
   constructor(
-    public matchupsService: MatchupsService, 
+    public service: FootballService, 
     public router: Router, 
     public route: ActivatedRoute, 
   ) { }
 
   ngOnInit() {
-    this.matchupsService
+    this.service
       .getMatchups()
       .subscribe(matchups => {
         this.matchups = matchups
@@ -25,6 +25,7 @@ export class MatchupsPage implements OnInit {
   }
 
   navigateToCreate() {
+    this.service.reserved = undefined;
     this.router.navigate(['create'], { relativeTo: this.route });
   }
 

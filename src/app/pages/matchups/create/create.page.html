@@ -1,8 +1,52 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-card class="team" (click)="chooseTeam()">
+      <ion-card-header>
+        Select your 
+        <strong style.color="var(--element-700)">{{teamNumber}}</strong> 
+        team</ion-card-header>
+      <ion-card-title *ngIf="selectedClub">
+        {{selectedClub}}
+      </ion-card-title>
+      <img *ngIf="logo" class="logo" [src]="logo" />
+    </ion-card>
+    <ion-card class="roster">
+      <ion-card-header>
+        Assign your goalkeeper
+        <span><strong>{{selectedGK.length}}</strong>/1</span>
+      </ion-card-header>
+      <div class="players-wrapper">
+        <button 
+          *ngFor="let player of goalkeeperPlayers" 
+          (click)="toggleGK(player._id)"
+          [class]="(isSelected(player._id) ? 'player gk selected' : 'player')">
+          {{player.short_name}}
+        </button>
+      </div>
+    </ion-card>
+    <ion-card class="roster">
+      <ion-card-header>
+        Build your roster
+        <span><strong>{{selectedPlayers.length}}</strong>/10</span>
+      </ion-card-header>
+      <div class="players-wrapper">
+        <button 
+          *ngFor="let player of outfieldPlayers" 
+          (click)="togglePlayer(player._id)"
+          [class]="
+            isSelected(player._id) ? 'player selected' : 'player' + 
+            (selectedPlayers.length === 10 ? ' disabled' : '')">
+          {{player.short_name}}
+        </button>
+      </div>
+    </ion-card>
+  </div>
 </ion-content>

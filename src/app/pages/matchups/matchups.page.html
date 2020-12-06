@@ -11,7 +11,7 @@
     <ion-toolbar>
       <ion-title size="large">Matchups</ion-title>
       <ion-buttons slot="primary">
-        <ion-button (click)="navigateToCreate()">
+        <ion-button (click)="navigateToCreate ()">
           <ion-icon slot="icon-only" name="add-circle"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -31,6 +31,4 @@
       </div>
     </a>
   </div>
-
-  <app-explore-container *ngIf="matchups.length === 0" name="Matchups"></app-explore-container>
 </ion-content>

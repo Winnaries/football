@@ -1,9 +1,36 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-card *ngIf="matchup" class="prediction">
+      <ion-card-title>
+        {{winner}}
+      </ion-card-title>
+      <icon-card-header>
+        Predicted Result
+      </icon-card-header>
+    </ion-card>
+    <ion-card *ngIf="matchup" class="info">
+      <div class="team-wrapper">
+        <div class="team">
+          <img [src]="homeLogo" />
+          <span>{{matchup.home.name}}</span>
+        </div>
+        <span class="vs">vs</span>
+        <div class="team">
+          <img [src]="awayLogo" />
+          <span>{{matchup.away.name}}</span>
+        </div>
+      </div>
+    </ion-card>
+    <ion-card class="graph">
+      <canvas id="radar"></canvas>
+    </ion-card>
+  </div>
 </ion-content>

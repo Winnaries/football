@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators'
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators'
 
 export interface OutfieldAttributes {
   dribbling: number;
@@ -48,17 +48,42 @@ export interface SearchResponse {
   };
 }
 
+export interface Team {
+  players: Player[];
+  logo: string; 
+  name: string; 
+}
+
+export interface Matchup {
+  _id: string;
+  home: Team;
+  away: Team;
+  winner: 'home' | 'tie' | 'away';
+}
+
+export interface PredictionTeam {
+  name: string; 
+  gk: string[];
+  players: string[];
+}
+
+export interface PredictionInput {
+  home: PredictionTeam; 
+  away: PredictionTeam;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class FootballService {
-  private footballUrl = "http://90bca632677a.ngrok.io";
-  private portraitUrl = "https://cdn.sofifa.com/players/020/801/21_240.png"
+  public reserved: PredictionTeam;
+
+  private footballUrl = "http://0c1fc893d4fa.ngrok.io";
   private searchUrl = "https://api-football-v1.p.rapidapi.com/v2/teams/search";
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json', 
     })
   }
 
@@ -72,28 +97,74 @@ export class FootballService {
   constructor(private http: HttpClient) { }
 
   getDistinctClubs(): Observable<string[]> {
-    const url = `${this.footballUrl}/club/distinct`;
-    return this.http.get<string[]>(url)
+    const url = `${this.footballUrl}/clubs/distinct`;
+    return this.http
+      .get<{ clubs: string[] }>(url)
+      .pipe(map(response => response.clubs));
   }
 
   getPlayersFromClub(name: string): Observable<Player[]> {
-    const url = `${this.footballUrl}/club/${name}/players`;
-    return this.http.get<Player[]>(url);
-  }
-
-  getPhotoUrl(sofifaId: number): string {
-    const id = sofifaId.toString();
-    const l = id.slice(0, id.length - 3).padStart(3, '0');
-    const r = id.slice(3);
-    return `${this.portraitUrl}/players/${l}/${r}/21_240.png`
+    const url = `${this.footballUrl}/clubs/${name}/players`;
+    return this.http.get<{ players: Player[] }>(url).pipe(
+      map(response => response.players)
+    );
   }
 
   getClubLogoUrl(club: string): Observable<string> {
+    if (club == "FC Barcelona") {
+      club = "Barcelona";
+    }
+
+    club = club.replace(" ", "_");
+
     const url = `${this.searchUrl}/${club}`;
-    return this.http.get<SearchResponse>(url).pipe(
+    return this.http.get<SearchResponse>(url, this.searchHttpOptions).pipe(
       map(response => response.api.teams),
-      map(team => team[0].logo)
+      map(team => {
+        if (!team[0]) {
+          return "";
+        }
+
+        return team[0].logo
+      })
     )
   }
 
+  setReserved(name: string, gk: string[], players: string[]): void {
+    this.reserved = {
+      name, 
+      gk, 
+      players
+    }
+  }
+
+  createMatchup(name: string, gk: string[], players: string[]): Observable<string> {
+    const input = {
+      home: this.reserved, 
+      away: {
+        name, 
+        gk, 
+        players
+      }
+    }
+
+    this.reserved = undefined; 
+    return this.http
+      .post<{ _id: string }>(`${this.footballUrl}/matchups`, input, this.httpOptions)
+      .pipe(map(response => response._id));
+  }
+
+  getMatchups(): Observable<Matchup[]> {
+    const url = `${this.footballUrl}/matchups`;
+    return this.http.get<{ matchups: Matchup[] }>(url).pipe(
+      map((response) => response.matchups)
+    )
+  }
+
+  getMatchupById(id: string): Observable<Matchup> {
+    const url = `${this.footballUrl}/matchups/${id}`;
+    return this.http.get<{ matchups: Matchup[] }>(url).pipe(
+      map((response) => response.matchups[0])
+    )
+  }
 }

@@ -1,0 +1,36 @@
+ion-toolbar {
+  margin-top: 16px;
+}
+
+ion-item {
+  &:hover {
+    background: var(--element-100);
+  }
+}
+
+ion-toolbar {
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+}
+
+.list {
+  padding: 0 16px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+
+  .item {
+    height: 48px;
+    color: var(--element-850);
+    border-bottom: 1px solid var(--element-100);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--element-050);
+    }
+  }
+}

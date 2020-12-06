@@ -1,0 +1,75 @@
+ion-toolbar {
+  padding-top: 16px;
+  --border-width: 0 !important;
+}
+
+ion-card.prediction {
+  border-radius: 14px;
+  padding: 15px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  ion-card-title {
+    color: var(--ion-color-primary);
+  }
+
+  &:first-of-type {
+    margin-top: 10px;
+  }
+}
+
+ion-card.info {
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+
+  .team-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  span.vs {
+    position: absolute;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--element-500);
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .team {
+    flex: 1;
+    font-weight: 600;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    color: var(--element-800);
+    transform: translateX(-10px);
+
+    img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 8px;
+    }
+
+    &:last-child {
+      align-items: center;
+      text-align: center;
+      transform: translateX(10px);
+    }
+  }
+}
+
+ion-card.graph {
+  padding: 16px;
+}
