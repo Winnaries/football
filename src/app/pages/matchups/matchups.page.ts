@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FootballService } from 'src/app/services/football.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatchupsService, Matchup } from '../../services/matchups.service';
 
 @Component({
@@ -12,7 +12,8 @@ export class MatchupsPage implements OnInit {
 
   constructor(
     public matchupsService: MatchupsService, 
-    public footballService: FootballService, 
+    public router: Router, 
+    public route: ActivatedRoute, 
   ) { }
 
   ngOnInit() {
@@ -21,6 +22,10 @@ export class MatchupsPage implements OnInit {
       .subscribe(matchups => {
         this.matchups = matchups
       });
+  }
+
+  navigateToCreate() {
+    this.router.navigate(['create'], { relativeTo: this.route });
   }
 
 }

@@ -11,7 +11,7 @@
     <ion-toolbar>
       <ion-title size="large">Matchups</ion-title>
       <ion-buttons slot="primary">
-        <ion-button>
+        <ion-button (click)="navigateToCreate()">
           <ion-icon slot="icon-only" name="add-circle"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -19,7 +19,7 @@
   </ion-header>
 
   <div class="wrapper">
-    <div *ngFor="let matchup of matchups" class="card">
+    <a [routerLink]="'detail/' + matchup._id"  *ngFor="let matchup of matchups" class="card">
       <div>
         <img [src]="matchup.home.logo" />
         <span class="team">{{matchup.home.name}}</span>
@@ -29,7 +29,7 @@
         <span class="team">{{matchup.away.name}}</span>
         <img [src]="matchup.away.logo" />
       </div>
-    </div>
+    </a>
   </div>
 
   <app-explore-container *ngIf="matchups.length === 0" name="Matchups"></app-explore-container>
