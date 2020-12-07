@@ -89,7 +89,7 @@ export class FootballService {
 
   searchHttpOptions = {
     headers: new HttpHeaders({
-      "x-rapidapi-key": "b7d0ff22d1msh45a5853b2b60f12p16802cjsn9ac0f44fd204",
+      "x-rapidapi-key": "xxx",
       "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
     })
   }
